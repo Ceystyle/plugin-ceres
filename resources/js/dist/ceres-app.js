@@ -15309,7 +15309,7 @@ Vue.component("shipping-privacy-hint-check", {
             });
         },
         currentPrivacyHints: function currentPrivacyHints() {
-            if (this.currentShippingProfile.shippingPrivacyInformation) {
+            if (this.currentShippingProfile && this.currentShippingProfile.shippingPrivacyInformation) {
                 return this.currentShippingProfile.shippingPrivacyInformation.filter(function (entry) {
                     return !!entry.showDataPrivacyAgreementHint;
                 });
@@ -19185,8 +19185,8 @@ Vue.component("item-search", {
             }
         },
         updateTitle: function updateTitle(searchString) {
-            document.querySelector("#searchPageTitle").innerHTML = _TranslationService2.default.translate("Ceres::Template.itemSearchResults") + " " + encodeURIComponent(searchString);
-            document.title = _TranslationService2.default.translate("Ceres::Template.itemSearchResults") + " " + encodeURIComponent(searchString) + " | " + App.config.header.companyName;
+            document.querySelector("#searchPageTitle").appendChild(document.createTextNode(_TranslationService2.default.translate("Ceres::Template.itemSearchResults") + " " + searchString));
+            document.title = _TranslationService2.default.translate("Ceres::Template.itemSearchResults") + " " + searchString + " | " + App.config.header.companyName;
         },
         autocomplete: function autocomplete(searchString) {
             var _this2 = this;
@@ -21122,6 +21122,7 @@ Vue.directive("toggle-basket-preview", {
                 var basketOpenClass = App.config.basket.previewType === "right" ? "open-right" : "open-hover";
 
                 vueApp.classList.toggle(basketOpenClass || "open-hover");
+
                 event.preventDefault();
                 event.stopPropagation();
             }
@@ -21323,18 +21324,16 @@ Vue.directive("render-category", {
                 return element.classList.contains("hover");
             });
 
-            if (!App.isCategoryView || currentCategoryType !== el.dataset.categoryType) {
-                _index2.default.dispatch("selectCategory", { categoryId: parseInt(el.dataset.categoryId), withReload: true });
-
-                var url = _index2.default.state.navigation.currentCategory.url;
-
+            if (!App.isCategoryView || currentCategoryType !== el.dataset.categoryType || currentCategoryType === "content") {
                 // check if touch device and change the ui handling
                 if (document.body.classList.contains("touch")) {
                     if (openCategory && openCategory.contains(event.target) || binding.value.alwaysOpen) {
-                        window.open(url, "_self");
+                        _index2.default.dispatch("selectCategory", { categoryId: parseInt(el.dataset.categoryId), withReload: true });
+                        window.open(_index2.default.state.navigation.currentCategory.url, "_self");
                     }
                 } else {
-                    window.open(url, "_self");
+                    _index2.default.dispatch("selectCategory", { categoryId: parseInt(el.dataset.categoryId), withReload: true });
+                    window.open(_index2.default.state.navigation.currentCategory.url, "_self");
                 }
             }
             // check if user click the opened category and change the ui handling
