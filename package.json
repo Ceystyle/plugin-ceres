@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "bootstrap": "v4.0.0-alpha.3",
+    "bootstrap": "^4.0.0-alpha.3",
     "custom-event-polyfill": "^0.3.0",
     "detect-browser": "^2.3.0",
     "flag-icon-css": "^2.9.0",
@@ -60,7 +60,7 @@
     "owl.carousel": "2.2.0",
     "popper.js": "^1.14.3",
     "sticky-kit": "^1.1.3",
-    "vue": "^2.5.16",
+    "vue": "^2.5.17",
     "vue-script2": "^2.0.1",
     "vuex": "^3.0.1"
   }
