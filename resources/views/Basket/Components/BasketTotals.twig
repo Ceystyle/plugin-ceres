@@ -6,8 +6,6 @@
         <div class="h3">{{ trans("Ceres::Template.basketSum") }}</div>
         <div class="component-loading with-icon refreshing split-totals-height" :class="{ 'isLoading': isBasketLoading }">
             <dl>
-                {{ LayoutContainer.show("Ceres::BasketTotals.BeforeItemSum") }}
-                    ${ calculateBaseValue(basket.itemSumNet, basket.basketRebate) | currency }
                 <dt :class="{ 'font-weight-bold': !showNetPrices }">
                     {{ trans("Ceres::Template.basketValue") }} ({{ trans("Ceres::Template.basketGross") }})
                 </dt><!--
@@ -94,6 +92,7 @@
                             ${ basket.openAmount | currency }
                         </dd>
                     </template>
+                    <div class="h6">{{ trans("Ceres::Template.basketNoVAT") }}</div>
                 </div>
                 {{ LayoutContainer.show("Ceres::BasketTotals.AfterTotalSum") }}
             </dl>
